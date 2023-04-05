@@ -13,6 +13,8 @@ import io.swagger.service.AccountService;
 import io.swagger.service.UserService;
 import lombok.extern.java.Log;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -20,11 +22,14 @@ import java.util.List;
 
 @Log
 @Component
+
 public class ApplicationRunner implements org.springframework.boot.ApplicationRunner {
 
     private final UserService userService;
     private final AccountService accountService;
     private final TransactionRepository transactionRepository;
+
+
 
     public ApplicationRunner(UserService userService, AccountService accountService, TransactionRepository transactionRepository) {
         this.userService = userService;
