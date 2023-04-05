@@ -28,7 +28,7 @@ import javax.validation.constraints.*;
 @Entity
 public class Transaction   {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonProperty("id")
   private UUID id = null;
 

@@ -10,7 +10,7 @@ create table if NOT EXISTS ACCOUNT (
 );
 
 create table IF NOT EXISTS TRANSACTION (
-                                           ID  INTEGER NOT NULL primary key,
+                                           ID  uuid NOT NULL primary key,
                                            ACCOUNT_FROM  VARCHAR(255),
                                            ACCOUNT_TO VARCHAR(255),
                                            AMOUNT FLOAT ,
