@@ -1,4 +1,4 @@
-create table if NOT EXISTS account (
+create table if NOT EXISTS ACCOUNT (
                                        IBAN VARCHAR(255) NOT NULL primary key,
                                        ABSOLUTE_LIMIT FLOAT,
                                        ACTIVE BOOLEAN,
@@ -9,7 +9,7 @@ create table if NOT EXISTS account (
                                        USERID BIGINT NOT NULL
 );
 
-create table IF NOT EXISTS transaction (
+create table IF NOT EXISTS TRANSACTION (
                                            ID  uuid NOT NULL primary key,
                                            ACCOUNT_FROM  VARCHAR(255),
                                            ACCOUNT_TO VARCHAR(255),
@@ -20,7 +20,7 @@ create table IF NOT EXISTS transaction (
 
 );
 
-create table IF NOT EXISTS "user" (
+create table IF NOT EXISTS "USER" (
                                       ID BIGINT NOT NULL  primary key,
                                       DAY_LIMIT FLOAT ,
                                       FIRSTNAME VARCHAR(255),
@@ -30,7 +30,7 @@ create table IF NOT EXISTS "user" (
                                       USERNAME  VARCHAR(255)
 );
 
-create table IF NOT EXISTS user_roles   (
+create table IF NOT EXISTS USER_ROLES   (
                                             USER_ID BIGINT NOT NULL,
                                             ROLES   INTEGER
 
