@@ -42,6 +42,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
     public void run(ApplicationArguments args) {
 
         User bankOwner = new User();
+        bankOwner.setId(1l);
         bankOwner.setUsername("bankOwner");
         bankOwner.setPassword("123");
         bankOwner.setRole(Role.ROLE_EMPLOYEE);
@@ -50,6 +51,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
         bankOwner.setPassword("090909");
 
         User user1 = new User();
+        user1.setId(2l);
         user1.setUsername("user1");
         user1.setPassword("123");
         user1.setRole(Role.ROLE_CUSTOMER);
@@ -59,6 +61,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
         user1.setTransactionLimit(200.00);
 
         User user2 = new User();
+        user2.setId(3l);
         user2.setUsername("user2");
         user2.setPassword("123");
         user2.setRole(Role.ROLE_EMPLOYEE);
@@ -68,6 +71,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
         user2.setTransactionLimit(200.00);
 
         User user3 = new User();
+        user3.setId(4l);
         user3.setUsername("user3");
         user3.setPassword("123");
         user3.setRole(Role.ROLE_CUSTOMER);
