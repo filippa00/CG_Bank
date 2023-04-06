@@ -14,9 +14,6 @@
         <property
                 name="hibernate.globally_quoted_identifiers"
                 value="true" />
-        <property
-                name="hibernate.globally_quoted_identifiers_skip_column_definitions"
-                value="true" />
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
