@@ -11,6 +11,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <springfox-version>3.0.0</springfox-version>
         <cucumber.version>7.3.3</cucumber.version>
+        <property
+                name="hibernate.globally_quoted_identifiers"
+                value="true" />
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
