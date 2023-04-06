@@ -32,7 +32,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM `USER` WHERE NOT EXISTS (SELECT * FROM ACCOUNT WHERE ACCOUNT.USERID = `USER`.ID)", nativeQuery = true)
     List<User> getUsersWithoutAccount();
 
-    @Query(value = "SELECT * FROM `User` AS U JOIN Account ON Account.userid = U.id WHERE Account.iban = :iban", nativeQuery = true)
+    @Query(value = "SELECT * FROM `USER` AS U JOIN Account ON Account.userid = U.id WHERE Account.iban = :iban", nativeQuery = true)
     User getUserByIban(String iban);
 
     @Query(value = "SELECT ISNULL(SUM(AMOUNT),0) FROM TRANSACTION JOIN ACCOUNT ON ACCOUNT.IBAN = TRANSACTION.ACCOUNT_FROM JOIN USER ON ACCOUNT.USERID = `USER`.ID WHERE `USER`.ID = :userid AND EXECUTION_DATE > :today", nativeQuery = true)

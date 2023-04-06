@@ -20,7 +20,7 @@ create table IF NOT EXISTS transaction (
 
 );
 
-create table IF NOT EXISTS "user" (
+create table IF NOT EXISTS "USER" (
                                       ID BIGINT NOT NULL  primary key,
                                       DAY_LIMIT FLOAT ,
                                       FIRSTNAME VARCHAR(255),

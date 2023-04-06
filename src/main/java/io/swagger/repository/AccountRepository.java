@@ -53,7 +53,7 @@ public interface AccountRepository extends JpaRepository<Account, String>  {
    // @Query(value = "SELECT * FROM ACCOUNT JOIN USER ON USER.ID = ACCOUNT.USERID WHERE USER.LASTNAME = :lastName OR USER.FIRSTNAME = :firstName", nativeQuery = true)
    // List<Account> getAccountByName (String lastName, String firstName);
 
-     @Query(value = "SELECT * FROM ACCOUNT JOIN USER ON `USER`.ID = ACCOUNT.USERID WHERE `USER`.ID = :userId", nativeQuery = true)
+     @Query(value = "SELECT * FROM ACCOUNT JOIN `USER` ON `USER`.ID = ACCOUNT.USERID WHERE `USER`.ID = :userId", nativeQuery = true)
      List<Account> getAccountByUserId (Long userId);
 
 }
