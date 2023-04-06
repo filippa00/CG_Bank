@@ -20,7 +20,7 @@ public interface AccountRepository extends JpaRepository<Account, String>  {
     @Query(value = "SELECT * FROM ACCOUNT WHERE ACCOUNT.USERID = :id", nativeQuery = true)
     List<Account> getAllAccountsForUserId(Long id);
 
-    @Query(value = "SELECT * FROM ACCOUNT JOIN `USER` ON ACCOUNT.USERID = `USER`.ID WHERE `USER`.USERNAME = :username", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT JOIN `user` ON ACCOUNT.USERID = `user`.ID WHERE `user`.USERNAME = :username", nativeQuery = true)
     List<Account> getAllAccountsForUsername(String username);
 
     @Query(value = "select balance from Account where iban = :iban AND iban !='NL01INHO0000000001'", nativeQuery = true)
@@ -53,7 +53,7 @@ public interface AccountRepository extends JpaRepository<Account, String>  {
    // @Query(value = "SELECT * FROM ACCOUNT JOIN USER ON USER.ID = ACCOUNT.USERID WHERE USER.LASTNAME = :lastName OR USER.FIRSTNAME = :firstName", nativeQuery = true)
    // List<Account> getAccountByName (String lastName, String firstName);
 
-     @Query(value = "SELECT * FROM ACCOUNT JOIN `USER` ON `USER`.ID = ACCOUNT.USERID WHERE `USER`.ID = :userId", nativeQuery = true)
+     @Query(value = "SELECT * FROM ACCOUNT JOIN `user` ON `user`.ID = ACCOUNT.USERID WHERE `user`.ID = :userId", nativeQuery = true)
      List<Account> getAccountByUserId (Long userId);
 
 }
