@@ -22,10 +22,10 @@ import javax.validation.constraints.*;
 
 @Entity
 //@Table(name = "\"user\"")
-@SequenceGenerator(name = "userIdSeq", sequenceName = "user_id_seq", allocationSize = 1)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdSeq")
+    @SequenceGenerator(name = "userIdSeq", sequenceName = "user_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false, columnDefinition = "serial")
     @JsonProperty("id")
     private Long id = null;
