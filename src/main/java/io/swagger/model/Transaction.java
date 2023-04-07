@@ -12,10 +12,7 @@ import java.util.UUID;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -38,15 +35,18 @@ public class Transaction   {
   private LocalDateTime executionDate = null;
 
   @JsonProperty("userPerforming")
+  @JoinColumn(name="USER_PERFORMING")
   private Long userPerforming = null;
 
   @JsonProperty("amount")
   private Double amount = null;
 
   @JsonProperty("accountTo")
+  @JoinColumn(name="ACCOUNT_TO")
   private String accountTo = null;
 
   @JsonProperty("accountFrom")
+  @JoinColumn(name="ACCOUNT_FROM")
   private String accountFrom = null;
 
   @JsonProperty("description")

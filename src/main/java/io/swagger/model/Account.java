@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.*;
 
 /**
@@ -25,6 +26,7 @@ public class Account   {
   private String iban = null;
 
   @JsonProperty("userid")
+  @JoinColumn(name="USERID")
   private Long userid = null;
 
   @JsonProperty("type")
