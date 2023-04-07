@@ -26,7 +26,7 @@ public class Account   {
   private String iban = null;
 
   @JsonProperty("userid")
-  @JoinColumn(name="USERID")
+  @JoinColumn(name="id")
   private Long userid = null;
 
   @JsonProperty("type")

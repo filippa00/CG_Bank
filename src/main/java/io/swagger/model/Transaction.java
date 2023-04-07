@@ -35,18 +35,18 @@ public class Transaction   {
   private LocalDateTime executionDate = null;
 
   @JsonProperty("userPerforming")
-  @JoinColumn(name="USER_PERFORMING")
+  @JoinColumn(name="id")
   private Long userPerforming = null;
 
   @JsonProperty("amount")
   private Double amount = null;
 
   @JsonProperty("accountTo")
-  @JoinColumn(name="ACCOUNT_TO")
+  @JoinColumn(name="iban")
   private String accountTo = null;
 
   @JsonProperty("accountFrom")
-  @JoinColumn(name="ACCOUNT_FROM")
+  @JoinColumn(name="iban")
   private String accountFrom = null;
 
   @JsonProperty("description")
