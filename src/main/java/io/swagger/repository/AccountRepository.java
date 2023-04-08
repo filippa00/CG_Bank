@@ -47,13 +47,13 @@ public interface AccountRepository extends JpaRepository<Account, String>  {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE Account set active = :active where iban = :iban", nativeQuery = true)
+    @Query(value = "UPDATE \"account\" set active = :active where iban = :iban", nativeQuery = true)
     void activate (String iban, Boolean active);
 
    // @Query(value = "SELECT * FROM ACCOUNT JOIN USER ON USER.ID = ACCOUNT.USERID WHERE USER.LASTNAME = :lastName OR USER.FIRSTNAME = :firstName", nativeQuery = true)
    // List<Account> getAccountByName (String lastName, String firstName);
 
-     @Query(value = "SELECT * FROM ACCOUNT JOIN `user` ON `user`.ID = ACCOUNT.USERID WHERE `user`.ID = :userId", nativeQuery = true)
+     @Query(value = "SELECT * FROM \"account\" JOIN \"user\" ON \"user\".ID = \"account\".USERID WHERE \"user\".ID = :userId", nativeQuery = true)
      List<Account> getAccountByUserId (Long userId);
 
 }
