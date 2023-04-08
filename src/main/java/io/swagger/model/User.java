@@ -24,8 +24,8 @@ import javax.validation.constraints.*;
 @Table(name = "\"user\"")
 public class User {
     @Id
-//            (strategy = GenerationType.IDENTITY)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column( columnDefinition = "serial")
     @JsonProperty("id")
     private Long id = null;
