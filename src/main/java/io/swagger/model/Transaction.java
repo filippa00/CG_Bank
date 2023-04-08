@@ -23,6 +23,7 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-06-06T22:10:19.196Z[GMT]")
 
 @Entity
+@Table(name = "\"transaction\"")
 public class Transaction   {
   @Id
   @GeneratedValue
@@ -35,18 +36,18 @@ public class Transaction   {
   private LocalDateTime executionDate = null;
 
   @JsonProperty("userPerforming")
-  @JoinColumn(name="id")
+//  @JoinColumn(name="id")
   private Long userPerforming = null;
 
   @JsonProperty("amount")
   private Double amount = null;
 
   @JsonProperty("accountTo")
-  @JoinColumn(name="iban")
+//  @JoinColumn(name="iban")
   private String accountTo = null;
 
   @JsonProperty("accountFrom")
-  @JoinColumn(name="iban")
+//  @JoinColumn(name="iban")
   private String accountFrom = null;
 
   @JsonProperty("description")

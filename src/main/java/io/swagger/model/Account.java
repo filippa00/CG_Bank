@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 import javax.validation.constraints.*;
 
 /**
@@ -19,6 +20,7 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-06-06T22:10:19.196Z[GMT]")
 
 @Entity
+@Table(name = "\"account\"")
 public class Account   {
 
   @Id
@@ -26,7 +28,7 @@ public class Account   {
   private String iban = null;
 
   @JsonProperty("userid")
-  @JoinColumn(name="id")
+//  @JoinColumn(name="id")
   private Long userid = null;
 
   @JsonProperty("type")

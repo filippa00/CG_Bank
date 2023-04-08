@@ -14,10 +14,10 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
-    @Query(value = "select sum(Account.balance) from Account where Account.userid = :id AND Account.userid != 1", nativeQuery = true)
+    @Query(value = "select sum(account.balance) from \"account\" where \"account\".userid = :id AND \"account\".userid != 1", nativeQuery = true)
     Double getTotalBalance(Long id);
 
-    @Query(value = "SELECT * FROM `user` WHERE USERNAME != 'bankOwner'", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"user\" WHERE USERNAME != 'bankOwner'", nativeQuery = true)
     List<User> getAllUsers();
 
     @Transactional
@@ -29,13 +29,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserById(Long id);
 
-    @Query(value = "SELECT * FROM `user` WHERE NOT EXISTS (SELECT * FROM ACCOUNT WHERE ACCOUNT.USERID = `user`.ID)", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"user\" WHERE NOT EXISTS (SELECT * FROM \"account\" WHERE \"account\".USERID = \"user\".ID)", nativeQuery = true)
     List<User> getUsersWithoutAccount();
 
-    @Query(value = "SELECT * FROM `user` AS U JOIN Account ON Account.userid = U.id WHERE Account.iban = :iban", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"user\" AS U JOIN \"account\" ON \"account\".userid = U.id WHERE \"account\".iban = :iban", nativeQuery = true)
     User getUserByIban(String iban);
 
-    @Query(value = "SELECT ISNULL(SUM(AMOUNT),0) FROM TRANSACTION JOIN ACCOUNT ON ACCOUNT.IBAN = TRANSACTION.ACCOUNT_FROM JOIN `user` ON ACCOUNT.USERID = `user`.ID WHERE `user`.ID = :userid AND EXECUTION_DATE > :today", nativeQuery = true)
+    @Query(value = "SELECT ISNULL(SUM(AMOUNT),0) FROM \"transaction\" JOIN \"account\" ON \"account\".IBAN = \"account\".ACCOUNT_FROM JOIN \"user\" ON \"account\".USERID =  \"user\".ID WHERE  \"user\".ID = :userid AND EXECUTION_DATE > :today", nativeQuery = true)
     Double getDailyUsed (Long userid, LocalDate today);
 
 

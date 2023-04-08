@@ -14,35 +14,35 @@ import java.util.List;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, String>  {
 
-    @Query(value = "SELECT * FROM ACCOUNT WHERE IBAN != 'NL01INHO0000000001'", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"account\" WHERE IBAN != 'NL01INHO0000000001'", nativeQuery = true)
     List<Account> getAllAccounts();
 
-    @Query(value = "SELECT * FROM ACCOUNT WHERE ACCOUNT.USERID = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"account\" WHERE \"account\".USERID = :id", nativeQuery = true)
     List<Account> getAllAccountsForUserId(Long id);
 
-    @Query(value = "SELECT * FROM ACCOUNT JOIN `user` ON ACCOUNT.USERID = `user`.ID WHERE `user`.USERNAME = :username", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"account\" JOIN  \"user\" ON \"account\".USERID =  \"user\".ID WHERE  \"user\".USERNAME = :username", nativeQuery = true)
     List<Account> getAllAccountsForUsername(String username);
 
-    @Query(value = "select balance from Account where iban = :iban AND iban !='NL01INHO0000000001'", nativeQuery = true)
+    @Query(value = "select balance from \"account\" where iban = :iban AND iban !='NL01INHO0000000001'", nativeQuery = true)
     Double getBalance(@Param("iban") String iban);
 
     @Query("SELECT iban FROM Account ")
     List<String> getAllIban();
 
-    @Query (value = "select * from Account where Account.iban = :iban", nativeQuery = true)
+    @Query (value = "select * from \"account\" where \"account\".iban = :iban", nativeQuery = true)
     Account getAccountSettingByIban(String iban);
 
-    @Query(value = "SELECT * FROM Account AS A WHERE A.iban = :iban", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"account\" AS A WHERE A.iban = :iban", nativeQuery = true)
     Account getAccountByIban (String iban);
 
     @Transactional
     @Modifying
-    @Query(value = "update Account set Account.pincode = :pincode, absolute_Limit = :absoluteLimit where iban = :iban", nativeQuery = true)
+    @Query(value = "update \"account\" set \"account\".pincode = :pincode, absolute_Limit = :absoluteLimit where iban = :iban", nativeQuery = true)
     void updateSettings (String iban, Integer pincode, Double absoluteLimit);
 
     @Transactional
     @Modifying
-    @Query(value = "update Account set Account.balance = Account.balance + :amount where Account.iban = :iban", nativeQuery = true)
+    @Query(value = "update \"account\" set \"account\".balance = \"account\".balance + :amount where \"account\".iban = :iban", nativeQuery = true)
     void updateBalance(String iban, Double amount);
 
     @Transactional
