@@ -35,7 +35,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM \"user\" AS U JOIN \"account\" ON \"account\".userid = U.id WHERE \"account\".iban = :iban", nativeQuery = true)
     User getUserByIban(String iban);
 
-    @Query(value = "SELECT ISNULL(SUM(AMOUNT),0) FROM \"transaction\" JOIN \"account\" ON \"account\".IBAN = \"account\".ACCOUNT_FROM JOIN \"user\" ON \"account\".USERID =  \"user\".ID WHERE  \"user\".ID = :userid AND EXECUTION_DATE > :today", nativeQuery = true)
+    @Query(value = "SELECT ISNULL(SUM(AMOUNT),0) FROM \"transaction\" JOIN \"account\" ON \"account\".IBAN = \"transaction\".ACCOUNT_FROM JOIN \"user\" ON \"account\".USERID =  \"user\".ID WHERE  \"user\".ID = :userid AND EXECUTION_DATE > :today", nativeQuery = true)
     Double getDailyUsed (Long userid, LocalDate today);
 
 
