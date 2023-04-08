@@ -37,12 +37,12 @@ public interface AccountRepository extends JpaRepository<Account, String>  {
 
     @Transactional
     @Modifying
-    @Query(value = "update \"account\" set \"account\".pincode = :pincode, absolute_Limit = :absoluteLimit where iban = :iban", nativeQuery = true)
+    @Query(value = "UPDATE \"account\" set \"account\".pincode = :pincode, absolute_Limit = :absoluteLimit where iban = :iban", nativeQuery = true)
     void updateSettings (String iban, Integer pincode, Double absoluteLimit);
 
     @Transactional
     @Modifying
-    @Query(value = "update \"account\" set \"account\".balance = \"account\".balance + :amount where \"account\".iban = :iban", nativeQuery = true)
+    @Query(value = "UPDATE \"account\" AS A set A.balance = A.balance + :amount where A.iban = :iban", nativeQuery = true)
     void updateBalance(String iban, Double amount);
 
     @Transactional
