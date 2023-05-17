@@ -92,7 +92,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
 
         Account account1Current = new Account();
         account1Current.setUserid(2L);
-        account1Current.setIban("IBAN1CURRENT");
+        account1Current.setIban("NL59INHO0044174616");
         account1Current.setType(AccountType.CURRENT);
         account1Current.setActive(true);
         account1Current.setBalance(2000.00);
@@ -102,7 +102,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
 
         Account account1Savings = new Account();
         account1Savings.setUserid(2L);
-        account1Savings.setIban("IBAN1SAVINGS");
+        account1Savings.setIban("NL38INHO0492512323");
         account1Savings.setType(AccountType.SAVINGS);
         account1Savings.setActive(true);
         account1Savings.setBalance(2000.00);
@@ -112,7 +112,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
 
         Account account2Current = new Account();
         account2Current.setUserid(3L);
-        account2Current.setIban("IBAN2CURRENT");
+        account2Current.setIban("NL05INHO0401369366");
         account2Current.setType(AccountType.CURRENT);
         account2Current.setActive(true);
         account2Current.setBalance(2000.00);
@@ -122,7 +122,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
 
         Account account2Savings = new Account();
         account2Savings.setUserid(3L);
-        account2Savings.setIban("IBAN2SAVINGS");
+        account2Savings.setIban("NL60INHO0406461408");
         account2Savings.setType(AccountType.SAVINGS);
         account2Savings.setActive(true);
         account2Savings.setBalance(2000.00);
@@ -132,7 +132,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
 
         Account account3Current = new Account();
         account3Current.setUserid(4L);
-        account3Current.setIban("IBAN3CURRENT");
+        account3Current.setIban("NL22INHO0815607415");
         account3Current.setType(AccountType.CURRENT);
         account3Current.setActive(true);
         account3Current.setBalance(2000.00);
@@ -142,7 +142,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
 
         Account account3Savings = new Account();
         account3Savings.setUserid(4L);
-        account3Savings.setIban("IBAN3SAVINGS");
+        account3Savings.setIban("NL45INHO0574885951");
         account3Savings.setType(AccountType.SAVINGS);
         account3Savings.setActive(true);
         account3Savings.setBalance(2000.00);
@@ -171,42 +171,42 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
 
         Transaction transaction1 = new Transaction();
         transaction1.setUserPerforming(1L);
-        transaction1.setAccountFrom("IBAN1CURRENT");
-        transaction1.accountTo("IBAN1SAVINGS");
+        transaction1.setAccountFrom("NL59INHO0044174616");
+        transaction1.accountTo("NL38INHO0492512323");
         transaction1.amount(260.23);
         transaction1.executionDate(LocalDateTime.of(2022, 6, 11, 12, 0, 0));
         transaction1.setDescription("desc1");
 
         Transaction transaction2 = new Transaction();
         transaction2.userPerforming(2L);
-        transaction2.setAccountFrom("IBAN2CURRENT");
-        transaction2.accountTo("IBAN2SAVINGS");
+        transaction2.setAccountFrom("NL05INHO0401369366");
+        transaction2.accountTo("NL60INHO0406461408");
         transaction2.amount(36.2);
         transaction2.executionDate(LocalDateTime.of(2022, 6, 11, 13, 15,20));
         transaction2.setDescription("rent");
 
         Transaction transaction3 = new Transaction();
         transaction3.setUserPerforming(1L);
-        transaction3.setAccountFrom("IBAN1CURRENT");
-        transaction3.accountTo("IBAN2CURRENT");
+        transaction3.setAccountFrom("NL59INHO0044174616");
+        transaction3.accountTo("NL05INHO0401369366");
         transaction3.amount(888.0);
         transaction3.executionDate(LocalDateTime.of(2022, 6, 11, 12, 0, 0));
         transaction3.setDescription("gift");
 
-        Transaction transaction4 = new Transaction();
-        transaction4.setUserPerforming(1L);
-        transaction4.setAccountFrom("IBAN2SAVINGS");
-        transaction4.accountTo("IBAN1CURRENT");
-        transaction4.amount(14.0);
-        transaction4.executionDate(LocalDateTime.of(2022, 6, 11, 12, 0, 0));
-        transaction4.setDescription("rent22");
+//        Transaction transaction4 = new Transaction();
+//        transaction4.setUserPerforming(1L);
+//        transaction4.setAccountFrom("NL60INHO0406461408");
+//        transaction4.accountTo("NL05INHO0401369366");
+//        transaction4.amount(14.0);
+//        transaction4.executionDate(LocalDateTime.of(2022, 6, 11, 12, 0, 0));
+//        transaction4.setDescription("rent22");
 
         List<Transaction> transactions =
                 List.of(
                         transaction1,
                         transaction2,
-                        transaction3,
-                        transaction4
+                        transaction3
+
                 );
 
         transactionRepository.saveAll(transactions);
