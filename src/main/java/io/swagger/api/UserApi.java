@@ -44,7 +44,7 @@ public interface UserApi {
     @RequestMapping(value = "/user",
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<User> createUser(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody UserDTO body);
+    ResponseEntity<UserDTO> createUser(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody User body);
 
 
     @Operation(summary = "", description = "Get the total balance of all accounts for a user", security = {
@@ -76,7 +76,7 @@ public interface UserApi {
     @RequestMapping(value = "/user",
         produces = { "application/json" },
         method = RequestMethod.GET)
-    ResponseEntity<List<User>> getUsers(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
+    ResponseEntity<List<UserDTO>> getUsers(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
 )) @Valid @RequestParam(value = "limit", required = false) Integer limit, @Min(0) @Max(50) @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }, maximum="50"
 )) @Valid @RequestParam(value = "offset", required = false) Integer offset);
 
@@ -85,7 +85,7 @@ public interface UserApi {
     @RequestMapping(value = "/user/noAccount",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<List<User>> getUsersWithoutAccount(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
+    ResponseEntity<List<UserDTO>> getUsersWithoutAccount(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
     )) @Valid @RequestParam(value = "limit", required = false) Integer limit, @Min(0) @Max(50) @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }, maximum="50"
     )) @Valid @RequestParam(value = "offset", required = false) Integer offset);
 
@@ -127,7 +127,7 @@ public interface UserApi {
     @RequestMapping(value = "/user/employee",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<User> getUserEmployee ();
+    ResponseEntity<UserDTO> getUserEmployee ();
 
 
 }

@@ -39,55 +39,90 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public User getUserEmployee () {
-        return userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+    public UserDTO getUserEmployee () {
+        return userToDTO(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
     }
 
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
 
+        List<UserDTO> dtos = new ArrayList<>();
+        
         // if is a customer show only himself
         if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(Role.ROLE_CUSTOMER)) {
-            List<User> user = new ArrayList<>();
-            user.add(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-            return user;
+            User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            dtos.add(userToDTO(user));
+            return dtos;
         }
-
-        return userRepository.getAllUsers();
+        
+        for (User user : userRepository.getAllUsers()) {
+            dtos.add(userToDTO(user));
+        }
+        return dtos;
     }
 
-    public List<User> getUsersWithoutAccount() {
+    private UserDTO userToDTO(User user){
+//        List<UserDTO> dtos = new ArrayList<>();
 
-        return userRepository.getUsersWithoutAccount();
+//        for (User user : users) {
+            UserDTO dto = new UserDTO();
+            dto.setId(user.getId());
+            dto.setUsername(user.getUsername());
+            dto.setFirstname(user.getFirstname());
+            dto.setLastname(user.getLastname());
+            dto.setRole(user.getRoles().get(0));
+            dto.setDayLimit(user.getDayLimit());
+            dto.setTransactionLimit(user.getTransactionLimit());
+//            dtos.add(dto);
+//        }
+
+        return dto;
     }
 
-    public User createUser(UserDTO dto) {
+    public List<UserDTO> getUsersWithoutAccount() {
+        List<UserDTO> dtos = new ArrayList<>();
+        for (User user : userRepository.getUsersWithoutAccount()) {
+            dtos.add(userToDTO(user));
+        }
+        return dtos;
+    }
 
-        if (dto.getUsername() == null || dto.getFirstname() == null || dto.getLastname() == null || dto.getPassword() == null) {
+    public UserDTO createUser(User user) {
+
+        if (user.getUsername() == null || user.getFirstname() == null || user.getLastname() == null || user.getPassword() == null) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Fill in all required fields");
         }
-        if (dto.getUsername().isEmpty() || dto.getFirstname().isEmpty() || dto.getLastname().isEmpty() || dto.getPassword().isEmpty()) {
+        if (user.getUsername().isEmpty() || user.getFirstname().isEmpty() || user.getLastname().isEmpty() || user.getPassword().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Fill in all required fields");
         }
         // check if first and last name are all letter
-        if (!Pattern.matches("[a-zA-Z]+", dto.getFirstname()) || !Pattern.matches("[a-zA-Z]+", dto.getLastname())) {
+        if (!Pattern.matches("[a-zA-Z]+", user.getFirstname()) || !Pattern.matches("[a-zA-Z]+", user.getLastname())) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Name can only contain letters");
         }
 
         // check the there is not another user like this
-        if (userRepository.findByUsername(dto.getUsername()) != null) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Username already exists");
         }
 
-        User user = new User();
-        user.setUsername(dto.getUsername());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setFirstname(dto.getFirstname());
-        user.setLastname(dto.getLastname());
-        user.setRole(Role.ROLE_CUSTOMER);
+        //hash the password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        //set default settings and save user
+//        user.setRole(Role.ROLE_CUSTOMER);
         user.setDayLimit(2500.0);
         user.setTransactionLimit(500.0);
+        userRepository.save(user);
 
-        return userRepository.save(user);
+//        UserDTO dto = new UserDTO();
+//        dto.setId(user.getId());
+//        dto.setUsername(user.getUsername());
+//        dto.setFirstname(user.getFirstname());
+//        dto.setLastname(user.getLastname());
+//        dto.setRole(Role.ROLE_CUSTOMER);
+//        dto.setDayLimit(user.getDayLimit());
+//        dto.setTransactionLimit(user.getTransactionLimit());
+
+        return userToDTO(user);
     }
 
     public BalanceDTO getTotalBalance(Long userId) {

@@ -41,11 +41,26 @@ public class TransactionService {
     @Autowired
     IBANFilterRepository ibanFilterRepository;
 
+
     // As a customer, view all my transactions from May 2022 and then from June 2022
     public List<Transaction> getAllTransactions(Double amount, LocalDateTime dateFrom, LocalDateTime dateTo, String ibanTo, String ibanFrom, Long operator) {
-        if (!SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(Role.ROLE_CUSTOMER)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You must be a customer to see your transactions");
+        if (!SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(Role.ROLE_CUSTOMER) ) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You must be an customer to see all transactions");
         }
+
+        if(ibanTo != null)
+        {
+            if (ibanTo.equals("NL01INHO0000000001")) {
+                throw new IllegalArgumentException("not allowed to access the bank's account");
+            }
+        }else if(ibanFrom != null)
+        {
+            if (ibanFrom.equals("NL01INHO0000000001")) {
+                throw new IllegalArgumentException("not allowed to access the bank's account");
+            }
+        }
+        List<Transaction>filteredTransactions = new ArrayList<>();
+
         TransactionRequestDTO transactionRequestDTO = new TransactionRequestDTO();
         transactionRequestDTO.setAmount(amount);
         transactionRequestDTO.setDateFrom(dateFrom);
@@ -53,7 +68,17 @@ public class TransactionService {
         transactionRequestDTO.setIbanTo(ibanTo);
         transactionRequestDTO.setIbanFrom(ibanFrom);
         transactionRequestDTO.setOperator(operator);
-        return transactionFilterRepository.getTransactionByRequest(transactionRequestDTO);
+
+       List<Transaction> transactions = transactionFilterRepository.getTransactionByRequest(transactionRequestDTO);
+       List<Transaction> usersTransactions = transactionRepository.getAllTransactionsForUserId(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+
+       for(Transaction t : transactions){
+           if(usersTransactions.contains(t))
+           {
+               filteredTransactions.add(t);
+           };
+       }
+        return filteredTransactions;
     }
 
     public Transaction add(TransactionDTO dto) {
@@ -216,6 +241,16 @@ public class TransactionService {
             throw new IllegalArgumentException("account doesnt exist");
         }
 
+//        if (accountRepository.getAllAccountsForUsername(SecurityContextHolder.getContext().getAuthentication().getName()) == null)
+//        {
+//            throw new IllegalArgumentException("you do not have an account please create one");
+//        }else{
+            List<Account>accounts = accountRepository.getAllAccountsForUserId(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+            if(!isUserAccount(accounts, iban))
+            {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"this is not your account");
+            }
+//        }
 
         if (iban.equals("NL01INHO0000000001")) {
             throw new IllegalArgumentException("not allowed to access the bank's account");
@@ -247,6 +282,15 @@ public class TransactionService {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    private boolean isUserAccount(List<Account>accounts, String iban){
+        for(Account account : accounts){
+            if(account.getIban().equals(iban)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

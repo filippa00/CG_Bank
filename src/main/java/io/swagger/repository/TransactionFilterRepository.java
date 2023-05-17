@@ -37,13 +37,13 @@ public class TransactionFilterRepository {
             predicates.add(amountPredicate);
         }
 
-        if(request.getIbanFrom() != null && request.getIbanTo() != "NL01INHO0000000001"){
+        if(request.getIbanFrom() != null ){
             Predicate ibanFromPredicate = criteriaBuilder
                     .like(root.get("accountFrom"),"%"+ request.getIbanFrom()+ "%");
             predicates.add(ibanFromPredicate);
         }
 
-        if(request.getIbanTo() != null && request.getIbanTo() != "NL01INHO0000000001"){
+        if(request.getIbanTo() != null){
             Predicate ibanToPredicate = criteriaBuilder
                     .like(root.get("accountTo"),"%"+ request.getIbanTo()+ "%");
             predicates.add(ibanToPredicate);

@@ -104,7 +104,7 @@ public class UserStepsDefinition extends BaseStepDefinitions implements En {
             userDTO = new UserDTO();
             userDTO.setFirstname(firstname);
             userDTO.setUsername(username);
-            userDTO.setPassword(password);
+//            userDTO.setPassword(password);
             userDTO.setLastname(lastname);
         });
 

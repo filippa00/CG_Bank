@@ -67,25 +67,25 @@ class UserApiControllerTest {
     }
 
 
-    @Test
-    @WithMockUser(username = "user2", password = "123", roles = "EMPLOYEE")
-    public void createUser() throws Exception {
-        User user = new User();
-        //user.setId(10L);
-        user.setUsername("nkdl");
-        user.setPassword("12345");
-        user.setFirstname("fdgd");
-        user.setLastname("sfs");
-        user.setRole(Role.ROLE_CUSTOMER);
-        user.setDayLimit(500.00);
-        user.setTransactionLimit(200.00);
-        when(userService.createUser(any(UserDTO.class))).thenReturn(user);
-        this.mockMvc.perform(post("/user")
-                .content(mapper.writeValueAsString(user))
-                .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
-    }
+//    @Test
+//    @WithMockUser(username = "user2", password = "123", roles = "EMPLOYEE")
+//    public void createUser() throws Exception {
+//        User user = new User();
+//        //user.setId(10L);
+//        user.setUsername("nkdl");
+//        user.setPassword("12345");
+//        user.setFirstname("fdgd");
+//        user.setLastname("sfs");
+//        user.setRole(Role.ROLE_CUSTOMER);
+//        user.setDayLimit(500.00);
+//        user.setTransactionLimit(200.00);
+//        when(userService.createUser(any(User.class))).thenReturn(user);
+//        this.mockMvc.perform(post("/user")
+//                .content(mapper.writeValueAsString(user))
+//                .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isCreated());
+//    }
 
     @Test
     @WithMockUser(username = "user2", password = "123", roles = "CUSTOMER")

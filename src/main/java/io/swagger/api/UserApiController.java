@@ -43,7 +43,7 @@ public class UserApiController implements UserApi {
         this.userService = userService;
     }
 
-    public ResponseEntity<User> createUser(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody UserDTO body) {
+    public ResponseEntity<UserDTO> createUser(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody User body) {
             return ResponseEntity.status(201).body(userService.createUser(body));
     }
 
@@ -59,7 +59,7 @@ public class UserApiController implements UserApi {
     }
 
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<User>> getUsers(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
+    public ResponseEntity<List<UserDTO>> getUsers(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
 )) @Valid @RequestParam(value = "limit", required = false) Integer limit,@Min(0) @Max(50) @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }, maximum="50"
 )) @Valid @RequestParam(value = "offset", required = false) Integer offset) {
 
@@ -68,7 +68,7 @@ public class UserApiController implements UserApi {
 
 
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public ResponseEntity<List<User>> getUsersWithoutAccount(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
+    public ResponseEntity<List<UserDTO>> getUsersWithoutAccount(@Min(0)@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }
     )) @Valid @RequestParam(value = "limit", required = false) Integer limit,@Min(0) @Max(50) @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema(allowableValues={  }, maximum="50"
     )) @Valid @RequestParam(value = "offset", required = false) Integer offset) {
 
@@ -82,7 +82,7 @@ public class UserApiController implements UserApi {
     }
 
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public ResponseEntity<User> getUserEmployee() {
+    public ResponseEntity<UserDTO> getUserEmployee() {
         return ResponseEntity.ok().body(userService.getUserEmployee());
     }
 
